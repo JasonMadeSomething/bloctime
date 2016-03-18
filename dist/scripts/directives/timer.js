@@ -1,5 +1,5 @@
 (function() {
-    function timer($interval) {
+    function timer($interval, TIMER_STATES) {
         
         return {
             templateUrl: '/templates/directives/timer.html',
@@ -7,17 +7,17 @@
             restrict: 'E',
             scope: { },
             link: function(scope, element, attributes) {
-                
-                scope.time = 1500;
+                                
+                scope.time = TIMER_STATES.WORK_TIME;
                 
                 var timer = null;
                 
                 
                 scope.buttonText = function() {
                     if(timer === null){
-                        return "Start Session";
+                        return "Start";
                     } else {
-                        return "Stop Session";
+                        return "Stop";
                     }
                 }
                 
@@ -28,18 +28,40 @@
                     } else {
                         $interval.cancel(timer);
                         timer = null;
-                        scope.time = 1500;
+                        resetTimer();
                     }
                 }
+                
+                var onBreak = false;
+                                
                 var updateTime = function() {
                     scope.time -= 1;
+                    if (scope.time === 0){
+                        changeBreakStatus();
+                        scope.toggleTimer();
+                    }
                 };
                 
+                var changeBreakStatus = function() {
+                    onBreak = !(onBreak);
+                };
+                    
+                var resetTimer = function() {
+                    if(onBreak){
+                        scope.time = TIMER_STATES.BREAK_TIME;
+                    } else {
+                        scope.time = TIMER_STATES.WORK_TIME;
+                    }
+                };
             }
         };
     }
     
     angular
         .module('bloctime')
-        .directive('timer', ['$interval', timer]);
+        .constant('TIMER_STATES', {
+            "BREAK_TIME": 300,
+            "WORK_TIME": 1500
+    })
+        .directive('timer', ['$interval', 'TIMER_STATES', timer]);
 })();
