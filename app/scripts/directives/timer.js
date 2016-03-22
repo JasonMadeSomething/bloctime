@@ -41,7 +41,6 @@
                 
                 scope.$watch('onBreak', function(current, prev) {
                     if(prev != null && prev !== current){
-                        console.log(prev);
                         mySound.play();
                     }
                 }, true);
