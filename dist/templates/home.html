@@ -5,8 +5,8 @@
         <input type="submit">
     </form>
     <ul>
-        <li ng-repeat="task in allTasks">
-            {{task.$value}}
+        <li ng-repeat="task in allTasks | orderBy: 'created_at' : true">
+            {{task.name}}
         </li>
     </ul>
 </aside>

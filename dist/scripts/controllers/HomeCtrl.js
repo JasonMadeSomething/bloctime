@@ -3,7 +3,7 @@
         $scope.allTasks = Tasks.all;
         
         $scope.addTask = function() {
-            $scope.allTasks.$add($scope.newTask);
+            $scope.allTasks.$add({name: $scope.newTask, created_at: Firebase.ServerValue.TIMESTAMP});
             $scope.newTask = "";
         };
     }
