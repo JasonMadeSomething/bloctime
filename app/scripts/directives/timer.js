@@ -14,7 +14,7 @@
                 
                 var completedWorkSessions = 0;
                 
-                var mySound = new buzz.sound("/sounds/ding.mp3", {
+                var mySound = new buzz.sound("assets/sounds/ding.mp3", {
                     preload: true
                 });
                 
@@ -37,17 +37,22 @@
                     }
                 }
                 
-                scope.$watch('onBreak', function() {
-                    mySound.play();
+                scope.onBreak = false;
+                
+                scope.$watch('onBreak', function(current, prev) {
+                    if(prev != null && prev !== current){
+                        console.log(prev);
+                        mySound.play();
+                    }
                 }, true);
                 
-                var onBreak = false;
+                
                                 
                 var updateTime = function() {
                     scope.time -= 1;
                     if (scope.time === 0){
                         changeBreakStatus();
-                        if(onBreak) {
+                        if(scope.onBreak) {
                             completedWorkSessions += 1;
                         }
                         scope.toggleTimer();
@@ -55,11 +60,11 @@
                 };
                 
                 var changeBreakStatus = function() {
-                    onBreak = !(onBreak);
+                    scope.onBreak = !(scope.onBreak);
                 };
                     
                 var resetTimer = function() {
-                    if(onBreak){
+                    if(scope.onBreak){
                         if (completedWorkSessions === 4){
                             scope.time = TIMER_STATES.LONG_BREAK_TIME;
                             completedWorkSessions = 0;
@@ -77,9 +82,9 @@
     angular
         .module('bloctime')
         .constant('TIMER_STATES', {
-            "BREAK_TIME": 3,
-            "WORK_TIME": 2,
-            "LONG_BREAK_TIME": 5
+            "BREAK_TIME": 300,
+            "WORK_TIME": 1500,
+            "LONG_BREAK_TIME": 1800
     })
         .directive('timer', ['$interval', 'TIMER_STATES', timer]);
 })();
