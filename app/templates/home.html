@@ -1,13 +1,42 @@
-<aside>
-    <h3>Task History</h3>
+<div class="row">
+    <aside class="col s4">
+            
+        <h4>Task History</h4>
+        <a class="waves-effect btn modal-trigger" href="#modal1">Add New Task</a>
+        <ul>
+            <li ng-repeat="task in allTasks | orderBy: 'created_at' : true">
+                {{task.name}}
+            </li>
+        </ul>
+    </aside>
+    <div id="timer-wrapper" class="col s4">
+        <timer></timer>
+    </div>
+</div>
+
+<!-- Test modal -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <p>Test</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect btn">Close</a>
+    </div>
+</div>
+
+<div id="taskModal" class="modal">
     <form ng-submit="addTask()" ng-controller="HomeCtrl">
-        <input type="text" ng-model="newTask">
-        <input type="submit">
+        <div class="modal-content">
+            <label for="new_task">Enter Task:</label>
+            <input id="new_task" type="text" ng-model="newTask">  
+        </div>
+        <div class="modal-footer">
+            <button class="btn waves-effect modal-close modal-action" type="submit" name="action">Add Task</button>
+        </div>
     </form>
-    <ul>
-        <li ng-repeat="task in allTasks | orderBy: 'created_at' : true">
-            {{task.name}}
-        </li>
-    </ul>
-</aside>
-<timer></timer>
+</div>
+
+    
+    
+
+

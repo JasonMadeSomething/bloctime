@@ -13,12 +13,12 @@ body {
     font-family: "Arial";
 }
 
+#timer-wrapper{
+    margin-top: 25%;
+}
+
 .timer-container {
     width: 100%;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1;
     text-align: center;
 }
 
