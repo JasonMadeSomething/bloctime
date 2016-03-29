@@ -2,7 +2,7 @@
     <aside class="col s4">
             
         <h4>Task History</h4>
-        <a class="waves-effect btn modal-trigger" href="#modal1">Add New Task</a>
+        <a class="waves-effect btn modal-trigger" ng-click="openModal()" target="_self">Add New Task</a>
         <ul>
             <li ng-repeat="task in allTasks | orderBy: 'created_at' : true">
                 {{task.name}}
@@ -14,20 +14,10 @@
     </div>
 </div>
 
-<!-- Test modal -->
-<div id="modal1" class="modal">
-    <div class="modal-content">
-        <p>Test</p>
-    </div>
-    <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect btn">Close</a>
-    </div>
-</div>
-
 <div id="taskModal" class="modal">
     <form ng-submit="addTask()" ng-controller="HomeCtrl">
         <div class="modal-content">
-            <label for="new_task">Enter Task:</label>
+            <h4>Enter new task:</h4>
             <input id="new_task" type="text" ng-model="newTask">  
         </div>
         <div class="modal-footer">

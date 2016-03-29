@@ -6,6 +6,10 @@
             $scope.allTasks.$add({name: $scope.newTask, created_at: Firebase.ServerValue.TIMESTAMP});
             $scope.newTask = "";
         };
+        
+        $scope.openModal = function(){
+            $("#taskModal").openModal();
+        };
     }
     
     angular
